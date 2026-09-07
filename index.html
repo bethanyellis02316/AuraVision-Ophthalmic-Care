@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraVision Ophthalmic Care | Advanced Eye Health & Cataract Solutions</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- GSAP Motion Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        :root {
+            /* NEW WEBSITE THEME: Deep Navy & Frost Blue Doctor Theme */
+            --bg-base: #f0f6fa;
+            --bg-accent: #e1effa;
+            --primary-accent: #0284c7;
+            --deep-navy: #0b192c;
+            --dark-slate: #1e293b;
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.9);
+            --glass-shadow: 0 20px 40px rgba(11, 25, 44, 0.06);
+            --card-radius: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        h1, h2, h3, .logo {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Glassmorphism Styles */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+
+        /* Header Navigation */
+        header {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            z-index: 1000;
+            border-radius: 99px;
+            padding: 14px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.35rem;
+            color: var(--deep-navy);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-symbol {
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, #0284c7, #38bdf8);
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 10px rgba(2, 132, 199, 0.5);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 36px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark-slate);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-accent);
+        }
+
+        .cta-btn {
+            background: var(--deep-navy);
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 99px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(11, 25, 44, 0.15);
+        }
+
+        .cta-btn:hover {
+            background: var(--primary-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(2, 132, 199, 0.3);
+        }
+
+        /* Layout Structure */
+        section {
+            padding: 120px 20px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+
+        /* Hero Section */
+        #home {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 180px;
+        }
+
+        .hero-badge {
+            padding: 8px 20px;
+            border-radius: 99px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-accent);
+            background: rgba(2, 132, 199, 0.08);
+            margin-bottom: 24px;
+            border: 1px solid rgba(2, 132, 199, 0.15);
+            display: inline-block;
+        }
+
+        .hero-title {
+            font-size: 4.2rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            margin-bottom: 24px;
+            color: var(--deep-navy);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-bottom: 40px;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .service-card {
+            padding: 38px;
+            border-radius: var(--card-radius);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(11, 25, 44, 0.08);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .about-card {
+            padding: 48px;
+            border-radius: var(--card-radius);
+        }
+
+        /* Blog Section */
+        #blog {
+            max-width: 920px;
+        }
+
+        .blog-container {
+            padding: 60px;
+            border-radius: var(--card-radius);
+            margin-top: 30px;
+        }
+
+        .blog-container h1 {
+            font-size: 2.8rem;
+            line-height: 1.25;
+            color: var(--deep-navy);
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .blog-meta {
+            font-size: 0.9rem;
+            color: var(--primary-accent);
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .blog-container h2 {
+            font-size: 1.85rem;
+            color: var(--deep-navy);
+            margin: 44px 0 18px;
+            letter-spacing: -0.5px;
+        }
+
+        .blog-container h3 {
+            font-size: 1.3rem;
+            color: var(--primary-accent);
+            margin: 28px 0 12px;
+        }
+
+        .blog-container p {
+            margin-bottom: 22px;
+            color: var(--text-main);
+            font-size: 1.08rem;
+        }
+
+        .blog-container ul {
+            margin: 0 0 28px 24px;
+        }
+
+        .blog-container li {
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+        }
+
+        .blog-link {
+            color: var(--primary-accent);
+            text-decoration: underline;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        .blog-link:hover {
+            opacity: 0.8;
+        }
+
+        /* Expert Quote Box */
+        .doctor-quote-box {
+            background: linear-gradient(135deg, rgba(2, 132, 199, 0.06), rgba(11, 25, 44, 0.03));
+            border-left: 5px solid var(--primary-accent);
+            padding: 36px;
+            border-radius: 16px;
+            margin: 44px 0;
+        }
+
+        .doctor-quote-box h3 {
+            margin-top: 0;
+            font-size: 1.25rem;
+            color: var(--deep-navy);
+        }
+
+        .doctor-quote-box ul {
+            margin-bottom: 0;
+        }
+
+        /* FAQ Styling */
+        .faq-item {
+            margin-bottom: 20px;
+            padding: 26px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid var(--glass-border);
+        }
+
+        .faq-item h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.15rem;
+            color: var(--deep-navy);
+        }
+
+        .faq-item p {
+            margin: 0;
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        /* Contact Section */
+        .contact-wrapper {
+            max-width: 650px;
+            margin: 40px auto 0;
+            padding: 48px;
+            border-radius: var(--card-radius);
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--deep-navy);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 1px solid rgba(11, 25, 44, 0.15);
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-accent);
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.12);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            background: var(--deep-navy);
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(11, 25, 44, 0.15);
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(2, 132, 199, 0.25);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.6rem; }
+            header { flex-direction: column; gap: 12px; border-radius: 24px; }
+            nav ul { gap: 20px; }
+            .about-content { grid-template-columns: 1fr; }
+            .blog-container, .contact-wrapper { padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="glass-panel">
+        <a href="#home" class="logo"><span class="logo-symbol"></span> AuraVision Ophthalmic Care</a>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#blog">Blog</a></li>
+            </ul>
+        </nav>
+        <a href="#contact" class="cta-btn">Book Consultation</a>
+    </header>
+
+    <!-- Home / Hero Section -->
+    <section id="home">
+        <div class="hero-badge">Clinical Excellence & Innovation</div>
+        <h1 class="hero-title">Protecting Vision.<br>Empowering Life.</h1>
+        <p class="hero-subtitle">Your trusted educational and clinical portal for cutting-edge cataract micro-procedures, lens implantations, and complete eye health guidance.</p>
+        <div>
+            <a href="#blog" class="cta-btn" style="padding: 16px 36px; font-size: 1rem;">Read Clinical Guide</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <h2 style="font-size: 2.5rem; text-align: center; color: var(--deep-navy); margin-bottom: 12px;">Clinical Specialties</h2>
+        <p style="text-align: center; color: var(--text-muted); margin-bottom: 40px;">Comprehensive solutions for precise diagnosis and long-term optical health.</p>
+        
+        <div class="services-grid">
+            <div class="service-card glass-panel">
+                <div class="service-icon">🔬</div>
+                <h3 style="margin-bottom: 12px; color: var(--deep-navy);">Advanced Micro-Incision Surgery</h3>
+                <p style="color: var(--text-muted); font-size: 0.98rem;">Ultramodern phacoemulsification technique allowing rapid recovery without the need for stitches.</p>
+            </div>
+            <div class="service-card glass-panel">
+                <div class="service-icon">🌐</div>
+                <h3 style="margin-bottom: 12px; color: var(--deep-navy);">Custom Intraocular Lenses</h3>
+                <p style="color: var(--text-muted); font-size: 0.98rem;">Tailored Toric, Multifocal, and Extended Depth of Focus (EDOF) lens implants for spectacle-free visual clarity.</p>
+            </div>
+            <div class="service-card glass-panel">
+                <div class="service-icon">🛡️</div>
+                <h3 style="margin-bottom: 12px; color: var(--deep-navy);">Vitreoretinal & Cataract Care</h3>
+                <p style="color: var(--text-muted); font-size: 0.98rem;">Targeted management for complex visual co-morbidities, diabetic eye disease, and macular wellness.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="about-content">
+            <div class="about-card glass-panel">
+                <h2 style="font-size: 2.2rem; color: var(--deep-navy); margin-bottom: 20px;">Redefining Modern Standard of Vision Care</h2>
+                <p style="color: var(--text-muted); margin-bottom: 16px;">AuraVision Ophthalmic Care provides reliable, evidence-based guidance to help patients make well-informed decisions regarding their vision.</p>
+                <p style="color: var(--text-muted);">By integrating modern medical technologies with individual patient support, we focus on helping every individual regain peak visual performance and independence.</p>
+            </div>
+            <div class="about-card glass-panel" style="background: rgba(2, 132, 199, 0.04);">
+                <h3 style="color: var(--primary-accent); margin-bottom: 16px;">Why Patient Education Matters</h3>
+                <p style="color: var(--text-main); font-size: 1.05rem;">Understanding eye conditions early empowers individuals to seek proactive care before vision deterioration affects daily life and physical independence.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog">
+        <div class="blog-container glass-panel">
+            <div class="blog-meta">Educational Whitepaper • Eye Care</div>
+            
+            <!-- H1 -->
+            <h1>Navigating Modern Cataract Care: How Advanced Surgical Technology Restores Pristine Visual Clarity</h1>
+            
+            <p>Vision is our dominant sense, enriching every moment of daily life, work, and leisure. However, as the human body matures, the natural clear lens inside the eye undergoes gradual biological breakdown. Over time, natural structural proteins degrade and condense, turning an otherwise transparent lens into a cloudy barrier. This condition—known medically as a cataract—is the single leading cause of gradual, reversible vision impairment across the globe.</p>
+
+            <p>Modern medical science has revolutionized how we address ocular clouding. Today's specialized micro-procedures offer incredible precision, minimal discomfort, and remarkably rapid healing. For patients exploring specialized regional medical care, learning about options such as <a href="https://drbhaskargupta.co.uk/cataract-surgery/eastleigh/" class="blog-link">Cataract Surgery in Eastleigh</a> provides a direct, trustworthy pathway toward recovering crystal-clear vision under expert clinical supervision.</p>
+
+            <!-- H2 -->
+            <h2>The Biological Mechanics: Why Do Cataracts Form?</h2>
+            <p>To understand cataract formation, picture a camera lens focusing light rays cleanly onto an underlying digital sensor. In the human eye, the crystalline lens focuses light directly onto the retina at the back of the eye. In youth, this lens is perfectly clear, allowing effortless, sharp focus at varying distances.</p>
+
+            <p>With age, cellular changes disrupt the organized protein structure of the lens. Rather than allowing light to pass unimpeded, the lens begins to absorb and scatter light. Beyond normal chronological aging, several clinical factors accelerate cataract development:</p>
+
+            <ul>
+                <li><strong>Cumulative Ultraviolet (UV) Damage:</strong> Prolonged, unshielded solar radiation accelerates protein oxidation within the lens.</li>
+                <li><strong>Metabolic Conditions & Diabetes:</strong> High blood glucose levels alter the fluid mechanics of the lens, speeding up opacity.</li>
+                <li><strong>Physical Ocular Trauma:</strong> Past direct eye injuries or intraocular surgeries can trigger localized lens opacification.</li>
+                <li><strong>Medication Usage:</strong> Long-term use of systemic or inhaled corticosteroid treatments is a established cause of posterior capsular cataracts.</li>
+                <li><strong>Lifestyle Stressors:</strong> Chronic smoking, poor systemic hydration, and low dietary antioxidant intake accelerate oxidative tissue degradation.</li>
+            </ul>
+
+            <!-- H2 -->
+            <h2>Recognizing Early Warning Signs: When to Schedule an Evaluation</h2>
+            <p>Cataracts develop quietly over months or years without causing acute pain or immediate redness. Many individuals mistakenly adjust their reading glasses or increase room lighting without realizing their natural lens is becoming dense.</p>
+
+            <!-- H3 -->
+            <h3>1. Generalized Blur and Reduced Contrast</h3>
+            <p>The primary indicator of cataract progression is a persistent sensation of viewing surroundings through a thin film, haze, or dirty window pane. Fine details become challenging to distinguish, and contrast between light and dark shades fades.</p>
+
+            <!-- H3 -->
+            <h3>2. Severe Glare and Driving Difficulty at Night</h3>
+            <p>Because an opaque lens scatters light prematurely, bright light sources create uncomfortable glare. Driver safety is often compromised at night due to distracting halos encircling street lamps and oncoming vehicle headlights.</p>
+
+            <!-- H3 -->
+            <h3>3. Monocular Double Vision and Rapid Prescription Changes</h3>
+            <p>Irregular clouding across different sections of the lens can cause double vision in one eye (monocular diplopia). Frequent prescription changes over short timeframes also indicate changing lens density.</p>
+
+            <!-- H2 -->
+            <h2>Why Modern Medical Treatment is Extremely Useful</h2>
+            <p>An outdated belief suggested that cataracts had to become "ripe" or dense before surgical removal. Today's advanced microsurgical standards contradict this concept. Operating at an earlier stage makes the procedure simpler, safer, and speeds post-operative recovery.</p>
+
+            <p>Undergoing modern cataract care yields extensive lifestyle and wellness advantages:</p>
+
+            <ul>
+                <li><strong>Restoration of True Color and Depth Perception:</strong> Removing the clouded natural lens instantly restores bright, vibrant colors and sharp spatial awareness.</li>
+                <li><strong>Enhanced Safety and Reduced Fall Risk:</strong> Clinical data confirms that restoring clear vision significantly lowers accidental falls and home injuries in older adults.</li>
+                <li><strong>Tailored Intraocular Lenses (IOLs):</strong> Modern surgery allows patients to choose specialized replacement lenses—such as Multifocal or Toric IOLs—that reduce or eliminate the need for glasses after surgery.</li>
+                <li><strong>Preservation of Cognitive Vitality:</strong> Maintaining crisp visual input encourages active reading, social interaction, and mental engagement, which supports healthy brain aging.</li>
+            </ul>
+
+            <!-- H2 -->
+            <h2>The Procedure and Post-Operative Journey</h2>
+            <p>Modern cataract restoration is a brief, outpatient micro-procedure lasting approximately 15 to 20 minutes under gentle anesthetic eye drops. Through a microscopic incision (less than 2.2 mm), ultrasound energy breaks the clouded lens into micro-particles, which are gently removed. A personalized artificial intraocular lens (IOL) is then placed into the natural capsule, where it stays permanently.</p>
+
+            <p>Recovery is rapid. Most patients observe significant visual enhancement within 24 to 48 hours and resume non-strenuous daily activities almost immediately while using prescribed protective eye drops.</p>
+
+            <!-- DOCTOR QUOTE / TIPS SECTION -->
+            <div class="doctor-quote-box">
+                <h3>Dr. Bhaskar Gupta - Consultant Ophthalmologist & Retina-Cataract Specialist says:</h3>
+                <p><em>"To support complete healing and protect your vision following modern cataract surgery, I emphasize following these vital post-operative practices:"</em></p>
+                <ul>
+                    <li><strong>Maintain Strict Eye Drop Hygiene:</strong> Wash hands thoroughly prior to instilling medicated drops, and strictly follow the prescribed daily drop routine.</li>
+                    <li><strong>Wear Your Night Eye Shield:</strong> Secure your protective eye shield while sleeping during the first week to prevent accidental rubbing or pressure.</li>
+                    <li><strong>Avoid Heavy Physical Strain:</strong> Refrain from heavy lifting, strenuous workouts, or bending at the waist for 10-14 days to prevent spikes in intraocular pressure.</li>
+                    <li><strong>Keep the Eye Dry:</strong> Avoid direct contact with tap water, bath soap, or shampoo for two weeks, and avoid swimming pools or saunas.</li>
+                    <li><strong>Protect Against UV Light & Wind:</strong> Wear quality UV-blocking sunglasses when stepping outdoors to protect your healing eye from bright light and dust.</li>
+                </ul>
+            </div>
+
+            <!-- H2 -->
+            <h2>Frequently Asked Questions (FAQ)</h2>
+
+            <div class="faq-item">
+                <h3>How long does the artificial lens (IOL) last?</h3>
+                <p>An intraocular lens (IOL) is permanent. It does not degrade, wear out, or require replacement during your lifetime.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Will I feel any pain during cataract surgery?</h3>
+                <p>No. The eye is completely numbed using topical anesthetic drops. Most patients report feeling only light pressure during the brief procedure.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Can cataracts return after surgery?</h3>
+                <p>No, a cataract cannot return once the natural lens is removed. If the capsule holding the lens becomes hazy months or years later (Posterior Capsule Opacification), it can be cleared in minutes with a painless, outpatient YAG laser procedure.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>When can I return to work and daily activities?</h3>
+                <p>Most patients return to light desk work and normal routines within 2 to 3 days after surgery, provided they avoid heavy lifting and dusty environments.</p>
+            </div>
+
+            <!-- H2 -->
+            <h2>Conclusion</h2>
+            <p>Cataracts are a common milestone of aging, but modern medical advancements ensure they do not permanently compromise your quality of life. Through micro-incision techniques and advanced intraocular lenses, restoring clear sight is safe, quick, and highly predictable. Taking early steps to evaluate your vision ensures you continue to enjoy a bright, independent, and visually rich future.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 style="font-size: 2.5rem; text-align: center; color: var(--deep-navy); margin-bottom: 12px;">Send an Inquiry</h2>
+        <p style="text-align: center; color: var(--text-muted);">Have questions or wish to connect? Complete the private form below.</p>
+        
+        <div class="contact-wrapper glass-panel">
+            <form action="https://formspree.io/f/sample" method="POST" id="customContactForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Type your message or inquiry..." required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Submit Inquiry</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 AuraVision Ophthalmic Care. All Rights Reserved. Patient Education Portal.</p>
+    </footer>
+
+    <!-- GSAP Motion Animations -->
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Entrance
+        gsap.from('.hero-badge', { opacity: 0, y: -20, duration: 1, delay: 0.2, ease: "power3.out" });
+        gsap.from('.hero-title', { opacity: 0, y: 30, duration: 1.2, delay: 0.4, ease: "power3.out" });
+        gsap.from('.hero-subtitle', { opacity: 0, y: 20, duration: 1, delay: 0.7, ease: "power3.out" });
+        gsap.from('#home .cta-btn', { opacity: 0, scale: 0.9, duration: 0.8, delay: 1, ease: "back.out(1.7)" });
+
+        // ScrollTrigger Animations for Sections
+        gsap.utils.toArray('.service-card').forEach((card, index) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: '#services',
+                    start: 'top 80%',
+                },
+                opacity: 0,
+                y: 40,
+                duration: 0.8,
+                delay: index * 0.2,
+                ease: 'power3.out'
+            });
+        });
+
+        gsap.from('.about-card', {
+            scrollTrigger: {
+                trigger: '#about',
+                start: 'top 75%',
+            },
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            stagger: 0.3,
+            ease: 'power3.out'
+        });
+
+        gsap.from('.blog-container', {
+            scrollTrigger: {
+                trigger: '#blog',
+                start: 'top 80%',
+            },
+            opacity: 0,
+            y: 60,
+            duration: 1.2,
+            ease: 'power3.out'
+        });
+
+        gsap.from('.contact-wrapper', {
+            scrollTrigger: {
+                trigger: '#contact',
+                start: 'top 80%',
+            },
+            opacity: 0,
+            scale: 0.95,
+            duration: 1,
+            ease: 'power3.out'
+        });
+
+        // Form Submission Handler
+        document.getElementById('customContactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you! Your details have been submitted successfully.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
